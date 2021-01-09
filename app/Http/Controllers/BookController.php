@@ -25,6 +25,10 @@ class BookController extends Controller
         }
         else
         {
+            $request->validate([
+                'title' => "required|string|max:100|unique:App\Models\Book,title",
+                'desc' => 'required|string'
+            ]);
             $book = Book::create([
                 'title'=>$request->title,
                 'desc'=>$request->desc
@@ -41,6 +45,11 @@ class BookController extends Controller
         }
         else
         {
+            $request->validate([
+                'title' => "required|string|max:100|unique:App\Models\Book,title",
+                'desc' => 'required|string',
+                'img' => 'image|size:5120|mimes:jpg,png'
+            ]);
             $book = Book::where('id',$id)->update([
                 'title'=>$request->title,
                 'desc'=>$request->desc
